@@ -1,13 +1,19 @@
 package ee.mtiidla.jetpacksandbox.codelab
 
-import android.app.Application
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class CodelabApp : Application() {
+class CodelabApp : DaggerApplication() {
 
     override fun onCreate() {
+        Injection.init(this)
+        applyAutoInjector()
         super.onCreate()
 
-        Injection.init(this)
 
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return Injection.appComponent
     }
 }

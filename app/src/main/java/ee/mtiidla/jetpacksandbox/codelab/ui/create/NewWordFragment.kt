@@ -1,34 +1,27 @@
 package ee.mtiidla.jetpacksandbox.codelab.ui.create
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ee.mtiidla.jetpacksandbox.R
-import ee.mtiidla.jetpacksandbox.codelab.Injection
+import ee.mtiidla.jetpacksandbox.codelab.Injectable
 import ee.mtiidla.jetpacksandbox.codelab.ui.list.DefaultViewModelFactory
 import ee.mtiidla.jetpacksandbox.codelab.ui.log
 import kotlinx.android.synthetic.main.fragment_new_word.*
 import javax.inject.Inject
 
-class NewWordFragment : Fragment() {
+class NewWordFragment : Fragment(), Injectable {
 
     private lateinit var viewModel: NewWordViewModel
 
     @Inject
     lateinit var viewModelFactory: DefaultViewModelFactory<NewWordViewModel>
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-        Injection.appComponent.fragmentBuilder()
-                .fragment(this)
-                .build()
-                .inject(this)
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[NewWordViewModel::class.java]
     }
 

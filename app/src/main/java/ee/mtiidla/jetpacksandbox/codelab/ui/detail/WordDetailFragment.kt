@@ -2,14 +2,13 @@ package ee.mtiidla.jetpacksandbox.codelab.ui.detail
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ee.mtiidla.jetpacksandbox.R
-import ee.mtiidla.jetpacksandbox.codelab.Injection
+import ee.mtiidla.jetpacksandbox.codelab.Injectable
 import ee.mtiidla.jetpacksandbox.codelab.data.Word
 import ee.mtiidla.jetpacksandbox.codelab.ui.list.DefaultViewModelFactory
 import ee.mtiidla.jetpacksandbox.codelab.ui.log
@@ -17,23 +16,16 @@ import kotlinx.android.synthetic.main.fragment_word_detail.*
 import javax.inject.Inject
 
 
-class WordDetailFragment : Fragment() {
+class WordDetailFragment : Fragment(), Injectable {
 
     private lateinit var viewModel: WordDetailViewModel
 
     @Inject
     lateinit var viewModelFactory: DefaultViewModelFactory<WordDetailViewModel>
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-        Injection.appComponent.fragmentBuilder()
-                .fragment(this)
-                .build()
-                .inject(this)
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[WordDetailViewModel::class.java]
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

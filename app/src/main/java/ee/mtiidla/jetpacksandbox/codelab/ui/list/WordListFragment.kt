@@ -2,7 +2,6 @@ package ee.mtiidla.jetpacksandbox.codelab.ui.list
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ee.mtiidla.jetpacksandbox.R
-import ee.mtiidla.jetpacksandbox.codelab.Injection
+import ee.mtiidla.jetpacksandbox.codelab.Injectable
 import ee.mtiidla.jetpacksandbox.codelab.data.Word
 import ee.mtiidla.jetpacksandbox.codelab.ui.create.NewWordFragment
 import ee.mtiidla.jetpacksandbox.codelab.ui.detail.WordDetailFragment
@@ -19,7 +18,7 @@ import ee.mtiidla.jetpacksandbox.codelab.ui.log
 import kotlinx.android.synthetic.main.fragment_word_list.*
 import javax.inject.Inject
 
-class WordListFragment : Fragment() {
+class WordListFragment : Fragment(), Injectable {
 
     private lateinit var wordViewModel: WordListViewModel
     private lateinit var wordAdapter: WordListAdapter
@@ -27,18 +26,9 @@ class WordListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: DefaultViewModelFactory<WordListViewModel>
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-        Injection.appComponent.fragmentBuilder()
-                .fragment(this)
-                .build()
-                .inject(this)
-
-        log("VM FACTORY: $viewModelFactory")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         wordViewModel = ViewModelProviders.of(this, viewModelFactory)[WordListViewModel::class.java]
-
-        log("VM onAttach: $wordViewModel")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
