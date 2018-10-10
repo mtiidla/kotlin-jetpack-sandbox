@@ -28,12 +28,11 @@ class WordDetailFragment : Fragment() {
         super.onAttach(context)
 
         Injection.appComponent.fragmentBuilder()
-                .fragment(this)
                 .build()
                 .inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[WordDetailViewModel::class.java]
-
+        viewModel.argument = arguments?.getParcelable("arg")!!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,7 +44,7 @@ class WordDetailFragment : Fragment() {
 
         delete_word_button.setOnClickListener { viewModel.onDeleteWordClicked() }
 
-        viewModel.wordDetail.observe(viewLifecycleOwner, Observer { word ->
+        viewModel.wordDetail().observe(viewLifecycleOwner, Observer { word ->
             log("SINGLE WORD LOADED: $word")
             when (word) {
                 null -> closeView()

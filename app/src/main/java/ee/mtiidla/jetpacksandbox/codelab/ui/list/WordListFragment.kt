@@ -31,7 +31,6 @@ class WordListFragment : Fragment() {
         super.onAttach(context)
 
         Injection.appComponent.fragmentBuilder()
-                .fragment(this)
                 .build()
                 .inject(this)
 

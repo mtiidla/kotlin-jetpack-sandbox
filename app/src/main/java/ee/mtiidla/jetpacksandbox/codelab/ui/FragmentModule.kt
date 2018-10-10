@@ -1,29 +1,20 @@
 package ee.mtiidla.jetpacksandbox.codelab.ui
 
-import android.os.Bundle
-import android.support.v4.app.Fragment
 import dagger.Module
-import dagger.Provides
-import ee.mtiidla.jetpacksandbox.codelab.ui.detail.WordDetailScreenArg
 
 @Module
 abstract class FragmentModule {
 
-    @Module
-    companion object {
+    /**
+     * With this solution, ViewModels do not have any scope. Thus VMFactory is ApplicationScope
+     *
+     * Thus the factory is only created once, but on the other hand cannot pass parameters to VMs
+     *
+     * The drawback is that the parameters to VMs have to be passed manually via setters
+     * This is better explained from in this BlogPost https://proandroiddev.com/viewmodel-with-dagger2-architecture-components-2e06f06c9455
+     * And github issue https://github.com/googlesamples/android-architecture-components/issues/207
+     * And example https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/ui/user/UserViewModel.kt
+     */
 
-        @JvmStatic
-        @Provides
-        fun provideArguments(fragment: Fragment) : Bundle = fragment.arguments ?: Bundle.EMPTY
-
-        @JvmStatic
-        @Provides
-        fun provideArgument(bundle: Bundle) : Any = bundle.getParcelable("arg")!!
-
-        @JvmStatic
-        @Provides
-        fun provideWordDetailScreenArgument(argument: Any) : WordDetailScreenArg = argument as WordDetailScreenArg
-
-    }
 
 }
