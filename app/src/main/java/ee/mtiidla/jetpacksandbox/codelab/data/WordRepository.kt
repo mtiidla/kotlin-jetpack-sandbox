@@ -3,8 +3,10 @@ package ee.mtiidla.jetpacksandbox.codelab.data
 import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import ee.mtiidla.jetpacksandbox.codelab.ApplicationScope
+import ee.mtiidla.jetpacksandbox.codelab.testing.OpenForTesting
 import javax.inject.Inject
 
+@OpenForTesting
 @ApplicationScope
 class WordRepository @Inject constructor(private val wordDao: WordDao) {
 
