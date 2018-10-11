@@ -24,10 +24,7 @@ class NewWordFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        Injection.appComponent.fragmentBuilder()
-                .fragment(this)
-                .build()
-                .inject(this)
+        Injection.appComponent.inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[NewWordViewModel::class.java]
     }

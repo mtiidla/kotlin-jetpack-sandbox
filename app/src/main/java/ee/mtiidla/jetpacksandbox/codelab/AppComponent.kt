@@ -1,7 +1,10 @@
 package ee.mtiidla.jetpacksandbox.codelab
 
 import dagger.Component
-import ee.mtiidla.jetpacksandbox.codelab.ui.FragmentComponent
+import ee.mtiidla.jetpacksandbox.codelab.ui.create.NewWordFragment
+import ee.mtiidla.jetpacksandbox.codelab.ui.detail.WordDetailComponent
+import ee.mtiidla.jetpacksandbox.codelab.ui.detail.WordDetailModule
+import ee.mtiidla.jetpacksandbox.codelab.ui.list.WordListFragment
 
 @ApplicationScope
 @Component(
@@ -11,6 +14,10 @@ interface AppComponent {
 
     fun inject(app: CodelabApp)
 
-    fun fragmentBuilder() : FragmentComponent.Builder
+    fun inject(fragment: WordListFragment)
+
+    fun inject(fragment: NewWordFragment)
+
+    fun plusWordDetailFragment(module: WordDetailModule) : WordDetailComponent
 
 }

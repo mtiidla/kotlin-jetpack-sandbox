@@ -27,9 +27,8 @@ class WordDetailFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        Injection.appComponent.fragmentBuilder()
-                .fragment(this)
-                .build()
+        Injection.appComponent
+                .plusWordDetailFragment(WordDetailModule(this))
                 .inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[WordDetailViewModel::class.java]

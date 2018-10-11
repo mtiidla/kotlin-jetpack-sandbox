@@ -30,10 +30,7 @@ class WordListFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        Injection.appComponent.fragmentBuilder()
-                .fragment(this)
-                .build()
-                .inject(this)
+        Injection.appComponent.inject(this)
 
         log("VM FACTORY: $viewModelFactory")
         wordViewModel = ViewModelProviders.of(this, viewModelFactory)[WordListViewModel::class.java]
