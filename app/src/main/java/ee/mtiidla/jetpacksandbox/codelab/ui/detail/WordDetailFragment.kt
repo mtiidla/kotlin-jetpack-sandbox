@@ -28,7 +28,9 @@ class WordDetailFragment : Fragment() {
         super.onAttach(context)
 
         Injection.appComponent
-                .plusWordDetailFragment(WordDetailModule(this))
+                .wordDetailBuilder()
+                .arguments(arguments?.getParcelable("arg")!!)
+                .build()
                 .inject(this)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[WordDetailViewModel::class.java]

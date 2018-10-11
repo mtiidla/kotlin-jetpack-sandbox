@@ -3,7 +3,6 @@ package ee.mtiidla.jetpacksandbox.codelab
 import dagger.Component
 import ee.mtiidla.jetpacksandbox.codelab.ui.create.NewWordFragment
 import ee.mtiidla.jetpacksandbox.codelab.ui.detail.WordDetailComponent
-import ee.mtiidla.jetpacksandbox.codelab.ui.detail.WordDetailModule
 import ee.mtiidla.jetpacksandbox.codelab.ui.list.WordListFragment
 
 @ApplicationScope
@@ -18,6 +17,6 @@ interface AppComponent {
 
     fun inject(fragment: NewWordFragment)
 
-    fun plusWordDetailFragment(module: WordDetailModule) : WordDetailComponent
+    fun wordDetailBuilder() : WordDetailComponent.Builder
 
 }
