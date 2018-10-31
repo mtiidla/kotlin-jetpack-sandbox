@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import ee.mtiidla.jetpacksandbox.R
 import ee.mtiidla.jetpacksandbox.codelab.Injection
 import ee.mtiidla.jetpacksandbox.codelab.data.Word
-import ee.mtiidla.jetpacksandbox.codelab.ui.list.DefaultViewModelFactory
 import ee.mtiidla.jetpacksandbox.codelab.ui.log
 import kotlinx.android.synthetic.main.fragment_word_detail.*
 import javax.inject.Inject
@@ -22,18 +21,18 @@ class WordDetailFragment : Fragment() {
     private lateinit var viewModel: WordDetailViewModel
 
     @Inject
-    lateinit var viewModelFactory: DefaultViewModelFactory<WordDetailViewModel>
+    lateinit var viewModelFactory: WordDetailViewModelFactory.Factory;
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
+        val arguments: WordDetailScreenArg = arguments?.getParcelable("arg")!!
         Injection.appComponent
                 .wordDetailBuilder()
-                .arguments(arguments?.getParcelable("arg")!!)
                 .build()
                 .inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[WordDetailViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory.create(arguments))[WordDetailViewModel::class.java]
 
     }
 

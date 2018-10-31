@@ -1,6 +1,5 @@
 package ee.mtiidla.jetpacksandbox.codelab.ui.detail
 
-import dagger.BindsInstance
 import dagger.Subcomponent
 
 @Subcomponent
@@ -20,9 +19,6 @@ interface WordDetailComponent {
 
     @Subcomponent.Builder
     interface Builder {
-
-        @BindsInstance
-        fun arguments(arguments: WordDetailScreenArg): Builder
 
         fun build(): WordDetailComponent
     }
